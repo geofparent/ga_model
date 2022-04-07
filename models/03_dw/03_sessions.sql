@@ -1,0 +1,96 @@
+
+SELECT
+  date AS date,
+  visitNumber AS visitNumber,
+  visitId AS visitId,
+  visitStartTime AS visitStartTime,
+  totals.visits AS totals_visits,
+  totals.hits AS totals_hits,
+  totals.pageviews AS totals_pageviews,
+  totals.timeOnSite AS totals_timeOnSite,
+  totals.bounces AS totals_bounces,
+  totals.transactions AS totals_transactions,
+  totals.transactionRevenue AS totals_transactionRevenue,
+  totals.newVisits AS totals_newVisits,
+  totals.screenviews AS totals_screenviews,
+  totals.uniqueScreenviews AS totals_uniqueScreenviews,
+  totals.timeOnScreen AS totals_timeOnScreen,
+  totals.totalTransactionRevenue AS totals_totalTransactionRevenue,
+  totals.sessionQualityDim AS totals_sessionQualityDim,
+  trafficSource.referralPath AS trafficSource_referralPath,
+  trafficSource.campaign AS trafficSource_campaign,
+  trafficSource.source AS trafficSource_source,
+  trafficSource.medium AS trafficSource_medium,
+  trafficSource.keyword AS trafficSource_keyword,
+  trafficSource.adContent AS trafficSource_adContent,
+  trafficSource.adwordsClickInfo.campaignId AS trafficSource_adwordsClickInfo_campaignId,
+  trafficSource.adwordsClickInfo.adGroupId AS trafficSource_adwordsClickInfo_adGroupId,
+  trafficSource.adwordsClickInfo.creativeId AS trafficSource_adwordsClickInfo_creativeId,
+  trafficSource.adwordsClickInfo.criteriaId AS trafficSource_adwordsClickInfo_criteriaId,
+  trafficSource.adwordsClickInfo.page AS trafficSource_adwordsClickInfo_page,
+  trafficSource.adwordsClickInfo.slot AS trafficSource_adwordsClickInfo_slot,
+  trafficSource.adwordsClickInfo.criteriaParameters AS trafficSource_adwordsClickInfo_criteriaParameters,
+  trafficSource.adwordsClickInfo.gclId AS trafficSource_adwordsClickInfo_gclId,
+  trafficSource.adwordsClickInfo.customerId AS trafficSource_adwordsClickInfo_customerId,
+  trafficSource.adwordsClickInfo.adNetworkType AS trafficSource_adwordsClickInfo_adNetworkType,
+  trafficSource.adwordsClickInfo.targetingCriteria.boomUserlistId AS trafficSource_adwordsClickInfo_targetingCriteria_boomUserlistId,
+  trafficSource.adwordsClickInfo.isVideoAd AS trafficSource_adwordsClickInfo_isVideoAd,
+  trafficSource.isTrueDirect AS trafficSource_isTrueDirect,
+  trafficSource.campaignCode AS trafficSource_campaignCode,
+  device.browser AS device_browser,
+  device.browserVersion AS device_browserVersion,
+  device.browserSize AS device_browserSize,
+  device.operatingSystem AS device_operatingSystem,
+  device.operatingSystemVersion AS device_operatingSystemVersion,
+  device.isMobile AS device_isMobile,
+  device.mobileDeviceBranding AS device_mobileDeviceBranding,
+  device.mobileDeviceModel AS device_mobileDeviceModel,
+  device.mobileInputSelector AS device_mobileInputSelector,
+  device.mobileDeviceInfo AS device_mobileDeviceInfo,
+  device.mobileDeviceMarketingName AS device_mobileDeviceMarketingName,
+  device.flashVersion AS device_flashVersion,
+  device.javaEnabled AS device_javaEnabled,
+  device.LANGUAGE AS device_language,
+  device.screenColors AS device_screenColors,
+  device.screenResolution AS device_screenResolution,
+  device.deviceCategory AS device_deviceCategory,
+  geoNetwork.continent AS geoNetwork_continent,
+  geoNetwork.subContinent AS geoNetwork_subContinent,
+  geoNetwork.country AS geoNetwork_country,
+  geoNetwork.region AS geoNetwork_region,
+  geoNetwork.metro AS geoNetwork_metro,
+  geoNetwork.city AS geoNetwork_city,
+  geoNetwork.cityId AS geoNetwork_cityId,
+  geoNetwork.networkDomain AS geoNetwork_networkDomain,
+  geoNetwork.latitude AS geoNetwork_latitude,
+  geoNetwork.longitude AS geoNetwork_longitude,
+  geoNetwork.networkLocation AS geoNetwork_networkLocation,
+  fullVisitorId AS fullVisitorId,
+  userId AS userId,
+  clientId AS clientId,
+  channelGrouping AS channelGrouping,
+  socialEngagementType AS socialEngagementType
+  #,
+  #user_type_session AS user_type_session,
+
+FROM (
+  SELECT
+    parse_DATE('%Y%m%d',
+      date) AS date,
+    t.* EXCEPT(hits,
+      customDimensions,
+      visitorId,
+      date)
+      #,
+    #(
+    #SELECT
+      #value
+    #FROM
+      #t.customDimensions
+    #WHERE
+      #INDEX = 14) AS user_type_session,
+
+FROM
+  {{source('ga360_export','sessions_export')}} t
+WHERE
+  {{tableRange()}} )

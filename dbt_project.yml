@@ -34,5 +34,10 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   ga360_model:
     # Config indicated by + and applies to all files under models/example/
-    example:
+    03_dw:
       +materialized: view
+
+
+vars:
+        rangeStart: '20190101'
+        rangeEnd: '20190110'

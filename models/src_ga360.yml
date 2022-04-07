@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: ga360_export
+    schema: google_analytics_sample
+    database: bigquery-public-data
+    tables:
+      - name: sessions_export
+        identifier: ga_sessions_*
