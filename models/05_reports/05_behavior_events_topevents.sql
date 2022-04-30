@@ -1,16 +1,16 @@
 with hits as(
     select * from {{ ref('03_hits') }}
 ),
-with sessions as(
+sessions as(
     select * from {{ ref('03_sessions') }}
-),
+)
 
 select
-  hits.eventInfo_eventCategory as event_category,
-  -- hits.eventinfo.eventaction as event_action,
-  -- hits.eventinfo.eventlabel as event_label,
+  hits.eventInfo_eventCategory as eventInfo_eventCategory,
+  hits.eventInfo_eventAction as eventInfo_eventAction,
+  hits.eventInfo_eventLabel as eventInfo_eventLabel,
   count(*) as total_events,
-  count(distinct concat(cast(fullVisitorId as string), cast(visitStartTime as string))) as unique_events,
+  count(distinct concat(cast(hits.fullVisitorId as string), cast(hits.visitStartTime as string))) as unique_events,
   ifnull(sum(hits.eventInfo_eventValue),0) as event_value,
   ifnull(sum(hits.eventInfo_eventValue) / count(*),0) as avg_value
 from
@@ -23,7 +23,7 @@ where
   and hits.type = 'EVENT'
   and hits.eventInfo_eventCategory is not null
 group by
-  event_category
-  -- ,event_action
-  --, event_label
+  eventInfo_eventCategory
+  , eventInfo_eventAction
+  , eventInfo_eventLabel
 order by total_events desc

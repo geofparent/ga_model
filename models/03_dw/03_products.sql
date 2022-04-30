@@ -1,9 +1,9 @@
 SELECT
   date AS date,
-  fullvisitorid AS fullvisitorid,
-  visitid AS visitid,
-  concat(fullvisitorid, visitId) as session_id
-  visitstarttime AS visitstarttime,
+  fullVisitorId AS fullVisitorId,
+  visitId AS visitId,
+  concat(fullVisitorId, visitId) as session_id,
+  visitStartTime AS visitStartTime,
   hitNumber AS hitNumber,
   sourcePropertyInfo.sourcePropertyDisplayName AS sourcePropertyInfo_sourcePropertyDisplayName,
   sourcePropertyInfo.sourcePropertyTrackingId AS sourcePropertyInfo_sourcePropertyTrackingId,
@@ -31,9 +31,9 @@ FROM (
   SELECT
     parse_DATE('%Y%m%d',
       date) AS date,
-    fullvisitorid,
-    visitid,
-    visitstarttime,
+    fullVisitorId,
+    visitId,
+    visitStartTime,
     h.hitNumber,
     h.sourcePropertyInfo,
     p.* EXCEPT(customdimensions,

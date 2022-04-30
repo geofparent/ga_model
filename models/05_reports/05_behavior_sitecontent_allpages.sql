@@ -1,10 +1,9 @@
 with hits as(
     select * from {{ ref('03_hits') }}
 ),
-with sessions as(
+sessions as(
     select * from {{ ref('03_sessions') }}
 ),
-
 
 avg_time as (
 select
@@ -49,7 +48,8 @@ from (
         and sessions.totals_visits = 1))
   group by
     pagepath,
-    pagetitle))
+    pagetitle)
+  )
 
 select
   hits.page.pagepath as page,
