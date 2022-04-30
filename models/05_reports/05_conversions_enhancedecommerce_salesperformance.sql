@@ -19,7 +19,7 @@ select
 from
   hits
   JOIN
-  products on hits.item_productSku == products.productSKU
+  products as products on hits.item_productSku == products.productSKU
 where
   totals.visits = 1
   and hits.transaction_transactionId is not null
