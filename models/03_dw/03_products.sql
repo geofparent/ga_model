@@ -2,6 +2,7 @@ SELECT
   date AS date,
   fullvisitorid AS fullvisitorid,
   visitid AS visitid,
+  concat(fullvisitorid, visitId) as session_id
   visitstarttime AS visitstarttime,
   hitNumber AS hitNumber,
   sourcePropertyInfo.sourcePropertyDisplayName AS sourcePropertyInfo_sourcePropertyDisplayName,

@@ -1,19 +1,10 @@
-{% set custom_dim_list = dbt_utils.get_query_results_as_dict(
-  "SELECT
-  distinct(c.index) as index_num
-  FROM {{source('ga360_export','sessions_export')}} g,
-  UNNEST(customDimensions) as c
-  where {{tableRange()}}
-  order by index") %}
-
-
-
 SELECT
   date AS date,
   clientId AS clientId,
   fullVisitorId AS fullVisitorId,
   visitNumber AS visitNumber,
   visitId AS visitId,
+  concat(fullvisitorid, visitId) as session_id,
   visitStartTime AS visitStartTime,
   hitNumber AS hitNumber,
   time AS time,
@@ -89,13 +80,7 @@ SELECT
   contentGroup.contentGroupUniqueViews2 AS contentGroup_contentGroupUniqueViews2,
   contentGroup.contentGroupUniqueViews3 AS contentGroup_contentGroupUniqueViews3,
   contentGroup.contentGroupUniqueViews4 AS contentGroup_contentGroupUniqueViews4,
-  contentGroup.contentGroupUniqueViews5 AS contentGroup_contentGroupUniqueViews5,
-  {% for i in custom_dim_list.index_num.values %}
-  {{ i }} AS {{i}}
-    {%- if not loop.last -%}
-    ,
-    {%- endif -%}
-    {%- endfor %}
+  contentGroup.contentGroupUniqueViews5 AS contentGroup_contentGroupUniqueViews5
 
 FROM (
   SELECT
@@ -119,18 +104,7 @@ FROM (
       experiment,
       promotionActionInfo,
       dataSource
-    ),
-    {% for i in custom_dim_list.index_num.values %}
-    (SELECT
-      value
-    FROM
-    h.customDimensions
-    WHERE
-      INDEX = {{ i }}) AS {{ i }}
-      {%- if not loop.last -%}
-      ,
-      {%- endif -%}
-      {%- endfor %}
+    )
 
   FROM
     {{source('ga360_export','sessions_export')}} t,

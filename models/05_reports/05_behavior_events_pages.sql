@@ -1,6 +1,9 @@
 with hits as(
     select * from {{ ref('03_hits') }}
 ),
+with sessions as(
+    select * from {{ ref('03_sessions') }}
+),
 
 select
   hits.page_pagePath as page,
@@ -11,9 +14,10 @@ select
   ifnull(sum(hits.eventInfo_eventValue) / count(*),0) as avg_value
 from
   hits
+  LEFT JOIN
+  sessions ON hits.session_id = sessions.session_id
 where
-  ### is the below total visits needed if this is unnested?
-  totals.visits = 1
+  sessions.totals_visits = 1
   and type = 'EVENT'
 group by
   hits.page_pagePath
