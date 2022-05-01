@@ -8,6 +8,7 @@ sessions as(
     select * from {{ ref('03_sessions') }}
 )
 
+
 select
   products.v2ProductName as v2ProductName,
   products.productSKU as productSKU,
@@ -30,7 +31,6 @@ from
 where
 ###
   sessions.totals_visits = 1
-  and {{tableRange()}}
 group by
   product
   ,productSKU

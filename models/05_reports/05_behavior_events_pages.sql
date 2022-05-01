@@ -5,6 +5,7 @@ sessions as(
     select * from {{ ref('03_sessions') }}
 )
 
+
 select
   hits.page_pagePath as page_pagePath,
   hits.page_pageTitle as page_pageTitle,

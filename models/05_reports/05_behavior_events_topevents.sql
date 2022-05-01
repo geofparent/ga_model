@@ -5,6 +5,7 @@ sessions as(
     select * from {{ ref('03_sessions') }}
 )
 
+
 select
   hits.eventInfo_eventCategory as eventInfo_eventCategory,
   hits.eventInfo_eventAction as eventInfo_eventAction,

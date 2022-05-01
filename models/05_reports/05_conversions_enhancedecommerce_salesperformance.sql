@@ -27,7 +27,6 @@ from
 where
   sessions.totals_visits = 1
   and hits.transaction_transactionId is not null
-  and {{tableRange()}}
 group by
   transaction_transactionId
   ,date
