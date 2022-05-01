@@ -3,6 +3,7 @@ SELECT
   date AS date,
   visitNumber AS visitNumber,
   visitId AS visitId,
+  concat(fullvisitorid, visitId) as session_id,
   visitStartTime AS visitStartTime,
   totals.visits AS totals_visits,
   totals.hits AS totals_hits,

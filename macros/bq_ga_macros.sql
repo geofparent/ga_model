@@ -9,3 +9,9 @@ _table_suffix between '{{var("rangeStart")}}' and '{{var("rangeEnd")}}'
 _table_suffix = FORMAT_DATE("%Y%m%d", DATE_SUB(CURRENT_DATE('America/New_York'), INTERVAL 1 DAY))
 
 {%- endmacro %}
+
+{% macro parseDate() -%}
+
+parse_date("%Y%m%d", date) date_
+
+{%- endmacro %}

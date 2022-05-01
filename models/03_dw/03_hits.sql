@@ -1,10 +1,10 @@
-
 SELECT
   date AS date,
   clientId AS clientId,
   fullVisitorId AS fullVisitorId,
   visitNumber AS visitNumber,
   visitId AS visitId,
+  concat(fullvisitorid, visitId) as session_id,
   visitStartTime AS visitStartTime,
   hitNumber AS hitNumber,
   time AS time,
@@ -81,8 +81,6 @@ SELECT
   contentGroup.contentGroupUniqueViews3 AS contentGroup_contentGroupUniqueViews3,
   contentGroup.contentGroupUniqueViews4 AS contentGroup_contentGroupUniqueViews4,
   contentGroup.contentGroupUniqueViews5 AS contentGroup_contentGroupUniqueViews5
-  #,
-  #country AS country,
 
 FROM (
   SELECT
@@ -106,16 +104,7 @@ FROM (
       experiment,
       promotionActionInfo,
       dataSource
-      #uses_transient_token
     )
-      #,
-    #(
-    #SELECT
-    #  value
-    #FROM
-    #  h.customDimensions
-    #WHERE
-      #INDEX = 1) AS country,
 
   FROM
     {{source('ga360_export','sessions_export')}} t,

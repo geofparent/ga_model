@@ -1,366 +1,371 @@
 
-version: 2
+ version: 2
 
 models:
   - name: 03_hits
-    description: "Hits"
+    description:  Hits
     columns:
-      - name: date
-        description: The date of the session in YYYYMMDD format.
-      - name: clientId
-        description: Unhashed version of the Client ID for a given user associated with any given visit/session.
-      - name: fullVisitorId
-        description: The unique visitor ID.
-      - name: visitNumber
-        description: The session number for this user. If this is the first session, then this is set to 1.
-      - name: visitId
-        description: An identifier for this session. This is part of the value usually stored as the _utmb cookie. This is only unique to the user. For a completely unique ID, you should use a combination of fullVisitorId and visitId.
-      - name: visitStartTime
-        description: The timestamp (expressed as POSIX time).
-      - name: hitNumber
-        description: The sequenced hit number. For the first hit of each session, this is set to 1.
-      - name: time
-        description: The number of milliseconds after the visitStartTime when this hit was registered. The first hit has a hits.time of 0
-      - name: hour
-        description: The hour in which the hit occurred (0 to 23).
-      - name: minute
-        description: The minute in which the hit occurred (0 to 59).
-      - name: isSecure
-        description: This field is deprecated.
-      - name: isInteraction
-        description: If this hit was an interaction, this is set to true. If this was a non-interaction hit (i.e., an event with interaction set to false), this is false.
-      - name: isEntrance
-        description: If this hit was the first pageview or screenview hit of a session, this is set to true.
-      - name: isExit
-        description: If this hit was the last pageview or screenview hit of a session, this is set to true. There is no comparable field for a Google Analytics 4 property.
-      - name: referer
-        description: nan
-      - name: page_pagePath
-        description: The URL path of the page.
-      - name: page_hostname
-        description: The hostname of the URL.
-      - name: page_pageTitle
-        description: The page title.
-      - name: page_searchKeyword
-        description: If this was a search results page, this is the keyword entered.
-      - name: page_searchCategory
-        description: If this was a search-results page, this is the category selected.
-      - name: page_pagePathLevel1
-        description: This dimension rolls up all the page paths in the 1st hierarchical level in pagePath.
-      - name: page_pagePathLevel2
-        description: This dimension rolls up all the page paths in the 2nd hierarchical level in pagePath.
-      - name: page_pagePathLevel3
-        description: This dimension rolls up all the page paths in the 3d hierarchical level in pagePath.
-      - name: page_pagePathLevel4
-        description: This dimension rolls up all the page paths into hierarchical levels. Up to 4 pagePath levels may be specified. All additional levels in the pagePath hierarchy are also rolled up in this dimension.
-      - name: transaction_transactionId
-        description: The transaction ID of the ecommerce transaction.
-      - name: transaction_transactionRevenue
-        description: Total transaction revenue, expressed as the value passed to Analytics multiplied by 10^6. (e.g., 2.40 would be given as 2400000).
-      - name: transaction_transactionTax
-        description: Total transaction tax, expressed as the value passed to Analytics multiplied by 10^6. (e.g., 2.40 would be given as 2400000).
-      - name: transaction_transactionShipping
-        description: Total transaction shipping cost, expressed as the value passed to Analytics multiplied by 10^6. (e.g., 2.40 would be given as 2400000).
-      - name: transaction_affiliation
-        description: The affiliate information passed to the ecommerce tracking code.
-      - name: transaction_currencyCode
-        description: The local currency code for the transaction.
-      - name: transaction_localTransactionRevenue
-        description: Total transaction revenue in local currency, expressed as the value passed to Analytics multiplied by 10^6 (e.g., 2.40 would be given as 2400000).
-      - name: transaction_localTransactionTax
-        description: Total transaction tax in local currency, expressed as the value passed to Analytics multiplied by 10^6 (e.g., 2.40 would be given as 2400000).
-      - name: transaction_localTransactionShipping
-        description: Total transaction shipping cost in local currency, expressed as the value passed to Analytics multiplied by 10^6 (e.g., 2.40 would be given as 2400000).
-      - name: transaction_transactionCoupon
-        description: The coupon code associated with the transaction.
-      - name: item_transactionId
-        description: The transaction ID of the ecommerce transaction.
-      - name: item_productName
-        description: The name of the product.
-      - name: item_productCategory
-        description: The category of the product.
-      - name: item_productSku
-        description: The SKU or product ID.
-      - name: item_itemQuantity
-        description: The quantity of the product sold.
-      - name: item_itemRevenue
-        description: Total revenue from the item, expressed as the value passed to Analytics multiplied by 10^6 (e.g., 2.40 would be given as 2400000).
-      - name: item_currencyCode
-        description: The local currency code for the transaction.
-      - name: item_localItemRevenue
-        description: Total revenue from this item in local currency, expressed as the value passed to Analytics multiplied by 10^6 (e.g., 2.40 would be given as 2400000).
-      - name: exceptionInfo_description
-        description: The exception description.
-      - name: exceptionInfo_isFatal
-        description: If the exception was fatal, this is set to true.
-      - name: exceptionInfo_exceptions
-        description: The number of exceptions sent to Google Analytics.
-      - name: exceptionInfo_fatalExceptions
-        description: The number of exceptions sent to Google Analytics where isFatal is set to true.
-      - name: eventInfo_eventCategory
-        description: The event category.
-      - name: eventInfo_eventAction
-        description: The event action.
-      - name: eventInfo_eventLabel
-        description: The event label.
-      - name: eventInfo_eventValue
-        description: The event value.
-      - name: refund_refundAmount
-        description: Refund amount, expressed as the value passed to Analytics multiplied by 10^6 (e.g., 2.40 would be given as 2400000).
-      - name: refund_localRefundAmount
-        description: Refund amount in local currency, expressed as the value passed to Analytics multiplied by 10^6 (e.g., 2.40 would be given as 2400000).
-      - name: eCommerceAction_action_type
-        description: The action type. Click through of product lists = 1, Product detail views = 2, Add product(s) to cart = 3, Remove product(s) from cart = 4, Check out = 5, Completed purchase = 6, Refund of purchase = 7, Checkout options = 8, Unknown = 0. Usually this action type applies to all the products in a hit, with the following exception: when hits.product.isImpression = TRUE, the corresponding product is a product impression that is seen while the product action is taking place (i.e., a "product in list view").
-      - name: eCommerceAction_step
-        description: This field is populated when a checkout step is specified with the hit.
-      - name: eCommerceAction_option
-        description: This field is populated when a checkout option is specified. For example, a shipping option such as option = 'Fedex'.
-      - name: type
-        description: The type of hit. One of: "PAGE", "TRANSACTION", "ITEM", "EVENT", "SOCIAL", "APPVIEW", "EXCEPTION". Timing hits are considered an event type in the Analytics backend. When you query time-related fields (e.g., hits.latencyTracking.pageLoadTime), choose hits.type as Event if you want to use hit.type in your queries.
-      - name: social_socialInteractionNetwork
-        description: The the network passed with the social tracking code, e.g., Twitter.
-      - name: social_socialInteractionAction
-        description: The social action passed with the social tracking code (Share, Tweet, etc.).
-      - name: social_socialInteractions
-        description: The total number of social interactions.
-      - name: social_socialInteractionTarget
-        description: For social interactions, this is the URL (or resource) which receives the social network action.
-      - name: social_socialNetwork
-        description: The social network name. This is related to the referring social network for traffic sources; e.g., Blogger.
-      - name: social_uniqueSocialInteractions
-        description: The number of sessions during which the specified social action(s) occurred at least once. This is based on the the unique combination of socialInteractionNetwork, socialInteractionAction, and socialInteractionTarget.
-      - name: social_hasSocialSourceReferral
-        description: A string, either Yes or No, that indicates whether sessions to the property are from a social source.
-      - name: social_socialInteractionNetworkAction
-        description: For social interactions, this represents the social network being tracked.
-      - name: sourcePropertyInfo_sourcePropertyDisplayName
-        description: nan
-      - name: sourcePropertyInfo_sourcePropertyTrackingId
-        description: nan
-      - name: contentGroup_contentGroup1
-        description: nan
-      - name: contentGroup_contentGroup2
-        description: nan
-      - name: contentGroup_contentGroup3
-        description: nan
-      - name: contentGroup_contentGroup4
-        description: nan
-      - name: contentGroup_contentGroup5
-        description: nan
-      - name: contentGroup_previousContentGroup1
-        description: nan
-      - name: contentGroup_previousContentGroup2
-        description: nan
-      - name: contentGroup_previousContentGroup3
-        description: nan
-      - name: contentGroup_previousContentGroup4
-        description: nan
-      - name: contentGroup_previousContentGroup5
-        description: nan
-      - name: contentGroup_contentGroupUniqueViews1
-        description: nan
-      - name: contentGroup_contentGroupUniqueViews2
-        description: nan
-      - name: contentGroup_contentGroupUniqueViews3
-        description: nan
-      - name: contentGroup_contentGroupUniqueViews4
-        description: nan
-      - name: contentGroup_contentGroupUniqueViews5
-        description: nan
-
+    - name: date
+      description: The date of the session in YYYYMMDD format.
+      tags:
+          - PK
+    - name: clientId
+      description: Unhashed version of the Client ID for a given user associated with any given visit/session.
+      tags:
+          - PK
+      tests:
+          - not_null
+    - name: fullVisitorId
+      description: The unique visitor ID.
+    - name: visitNumber
+      description: The session number for this user. If this is the first session, then this is set to 1.
+    - name: visitId
+      description: An identifier for this session. This is part of the value usually stored as the _utmb cookie. This is only unique to the user. For a completely unique ID, you should use a combination of fullVisitorId and visitId.
+    - name: visitStartTime
+      description: The timestamp (expressed as POSIX time).
+    - name: hitNumber
+      description: The sequenced hit number. For the first hit of each session, this is set to 1.
+    - name: time
+      description: The number of milliseconds after the visitStartTime when this hit was registered. The first hit has a hits.time of 0
+    - name: hour
+      description: The hour in which the hit occurred (0 to 23).
+    - name: minute
+      description: The minute in which the hit occurred (0 to 59).
+    - name: isSecure
+      description: This field is deprecated.
+    - name: isInteraction
+      description: If this hit was an interaction, this is set to true. If this was a non-interaction hit (i.e., an event with interaction set to false), this is false.
+    - name: isEntrance
+      description: If this hit was the first pageview or screenview hit of a session, this is set to true.
+    - name: isExit
+      description: If this hit was the last pageview or screenview hit of a session, this is set to true. There is no comparable field for a Google Analytics 4 property.
+    - name: referer
+      description: nan
+    - name: page_pagePath
+      description: The URL path of the page.
+    - name: page_hostname
+      description: The hostname of the URL.
+    - name: page_pageTitle
+      description: The page title.
+    - name: page_searchKeyword
+      description: If this was a search results page, this is the keyword entered.
+    - name: page_searchCategory
+      description: If this was a search-results page, this is the category selected.
+    - name: page_pagePathLevel1
+      description: This dimension rolls up all the page paths in the 1st hierarchical level in pagePath.
+    - name: page_pagePathLevel2
+      description: This dimension rolls up all the page paths in the 2nd hierarchical level in pagePath.
+    - name: page_pagePathLevel3
+      description: This dimension rolls up all the page paths in the 3d hierarchical level in pagePath.
+    - name: page_pagePathLevel4
+      description: This dimension rolls up all the page paths into hierarchical levels. Up to 4 pagePath levels may be specified. All additional levels in the pagePath hierarchy are also rolled up in this dimension.
+    - name: transaction_transactionId
+      description: The transaction ID of the ecommerce transaction.
+    - name: transaction_transactionRevenue
+      description: Total transaction revenue, expressed as the value passed to Analytics multiplied by 10^6. (e.g., 2.40 would be given as 2400000).
+    - name: transaction_transactionTax
+      description: Total transaction tax, expressed as the value passed to Analytics multiplied by 10^6. (e.g., 2.40 would be given as 2400000).
+    - name: transaction_transactionShipping
+      description: Total transaction shipping cost, expressed as the value passed to Analytics multiplied by 10^6. (e.g., 2.40 would be given as 2400000).
+    - name: transaction_affiliation
+      description: The affiliate information passed to the ecommerce tracking code.
+    - name: transaction_currencyCode
+      description: The local currency code for the transaction.
+    - name: transaction_localTransactionRevenue
+      description: Total transaction revenue in local currency, expressed as the value passed to Analytics multiplied by 10^6 (e.g., 2.40 would be given as 2400000).
+    - name: transaction_localTransactionTax
+      description: Total transaction tax in local currency, expressed as the value passed to Analytics multiplied by 10^6 (e.g., 2.40 would be given as 2400000).
+    - name: transaction_localTransactionShipping
+      description: Total transaction shipping cost in local currency, expressed as the value passed to Analytics multiplied by 10^6 (e.g., 2.40 would be given as 2400000).
+    - name: transaction_transactionCoupon
+      description: The coupon code associated with the transaction.
+    - name: item_transactionId
+      description: The transaction ID of the ecommerce transaction.
+    - name: item_productName
+      description: The name of the product.
+    - name: item_productCategory
+      description: The category of the product.
+    - name: item_productSku
+      description: The SKU or product ID.
+    - name: item_itemQuantity
+      description: The quantity of the product sold.
+    - name: item_itemRevenue
+      description: Total revenue from the item, expressed as the value passed to Analytics multiplied by 10^6 (e.g., 2.40 would be given as 2400000).
+    - name: item_currencyCode
+      description: The local currency code for the transaction.
+    - name: item_localItemRevenue
+      description: Total revenue from this item in local currency, expressed as the value passed to Analytics multiplied by 10^6 (e.g., 2.40 would be given as 2400000).
+    - name: exceptionInfo_description
+      description: The exception description.
+    - name: exceptionInfo_isFatal
+      description: If the exception was fatal, this is set to true.
+    - name: exceptionInfo_exceptions
+      description: The number of exceptions sent to Google Analytics.
+    - name: exceptionInfo_fatalExceptions
+      description: The number of exceptions sent to Google Analytics where isFatal is set to true.
+    - name: eventInfo_eventCategory
+      description: The event category.
+    - name: eventInfo_eventAction
+      description: The event action.
+    - name: eventInfo_eventLabel
+      description: The event label.
+    - name: eventInfo_eventValue
+      description: The event value.
+    - name: refund_refundAmount
+      description: Refund amount, expressed as the value passed to Analytics multiplied by 10^6 (e.g., 2.40 would be given as 2400000).
+    - name: refund_localRefundAmount
+      description: Refund amount in local currency, expressed as the value passed to Analytics multiplied by 10^6 (e.g., 2.40 would be given as 2400000).
+    - name: eCommerceAction_action_type
+      description: The action type. Click through of product lists maps to 1, Product detail views maps to 2, Add product(s) to cart maps to 3, Remove product(s) from cart maps to 4, Check out maps to 5, Completed purchase maps to 6, Refund of purchase maps to 7, Checkout options maps to 8, Unknown maps to 0. Usually this action type applies to all the products in a hit with the following exception when hits.product.isImpression maps to TRUE, the corresponding product is a product impressio that is seen while the product action is taking place
+    - name: eCommerceAction_step
+      description: This field is populated when a checkout step is specified with the hit.
+    - name: eCommerceAction_option
+      description: This field is populated when a checkout option is specified. For example, a shipping option such as option maps to Fedex.
+    - name: type
+      description: The type of hit. One of  PAGE ,  TRANSACTION ,  ITEM ,  EVENT ,  SOCIAL ,  APPVIEW ,  EXCEPTION . Timing hits are considered an event type in the Analytics backend. When you query time-related fields (e.g., hits.latencyTracking.pageLoadTime), choose hits.type as Event if you want to use hit.type in your queries.
+    - name: social_socialInteractionNetwork
+      description: The the network passed with the social tracking code, e.g., Twitter.
+    - name: social_socialInteractionAction
+      description: The social action passed with the social tracking code (Share, Tweet, etc.).
+    - name: social_socialInteractions
+      description: The total number of social interactions.
+    - name: social_socialInteractionTarget
+      description: For social interactions, this is the URL (or resource) which receives the social network action.
+    - name: social_socialNetwork
+      description: The social network name. This is related to the referring social network for traffic sources; e.g., Blogger.
+    - name: social_uniqueSocialInteractions
+      description: The number of sessions during which the specified social action(s) occurred at least once. This is based on the the unique combination of socialInteractionNetwork, socialInteractionAction, and socialInteractionTarget.
+    - name: social_hasSocialSourceReferral
+      description: A string, either Yes or No, that indicates whether sessions to the property are from a social source.
+    - name: social_socialInteractionNetworkAction
+      description: For social interactions, this represents the social network being tracked.
+    - name: sourcePropertyInfo_sourcePropertyDisplayName
+      description: nan
+    - name: sourcePropertyInfo_sourcePropertyTrackingId
+      description: nan
+    - name: contentGroup_contentGroup1
+      description: nan
+    - name: contentGroup_contentGroup2
+      description: nan
+    - name: contentGroup_contentGroup3
+      description: nan
+    - name: contentGroup_contentGroup4
+      description: nan
+    - name: contentGroup_contentGroup5
+      description: nan
+    - name: contentGroup_previousContentGroup1
+      description: nan
+    - name: contentGroup_previousContentGroup2
+      description: nan
+    - name: contentGroup_previousContentGroup3
+      description: nan
+    - name: contentGroup_previousContentGroup4
+      description: nan
+    - name: contentGroup_previousContentGroup5
+      description: nan
+    - name: contentGroup_contentGroupUniqueViews1
+      description: nan
+    - name: contentGroup_contentGroupUniqueViews2
+      description: nan
+    - name: contentGroup_contentGroupUniqueViews3
+      description: nan
+    - name: contentGroup_contentGroupUniqueViews4
+      description: nan
+    - name: contentGroup_contentGroupUniqueViews5
+      description: nan
 
   - name: 03_products
-    description: "Product Attributes"
+    description:  Product Attributes
     columns:
-      - name: date
-        description: The date of the session in YYYYMMDD format.
-      - name: fullvisitorid
-        description: nan
-      - name: visitid
-        description: nan
-      - name: visitstarttime
-        description: nan
-      - name: hitNumber
-        description: The sequenced hit number. For the first hit of each session, this is set to 1.
-      - name: sourcePropertyInfo_sourcePropertyDisplayName
-        description: nan
-      - name: sourcePropertyInfo_sourcePropertyTrackingId
-        description: nan
-      - name: productSKU
-        description: nan
-      - name: v2ProductName
-        description: nan
-      - name: v2ProductCategory
-        description: nan
-      - name: productVariant
-        description: nan
-      - name: productBrand
-        description: nan
-      - name: productRevenue
-        description: nan
-      - name: localProductRevenue
-        description: nan
-      - name: productPrice
-        description: nan
-      - name: localProductPrice
-        description: nan
-      - name: productQuantity
-        description: nan
-      - name: productRefundAmount
-        description: nan
-      - name: localProductRefundAmount
-        description: nan
-      - name: isImpression
-        description: nan
-      - name: isClick
-        description: nan
-      - name: productListName
-        description: nan
-      - name: productListPosition
-        description: nan
-      - name: productCouponCode
-        description: nan
+    - name: date
+      description: The date of the session in YYYYMMDD format.
+    - name: fullvisitorid
+      description: nan
+    - name: visitid
+      description: nan
+    - name: visitstarttime
+      description: nan
+    - name: hitNumber
+      description: The sequenced hit number. For the first hit of each session, this is set to 1.
+    - name: sourcePropertyInfo_sourcePropertyDisplayName
+      description: nan
+    - name: sourcePropertyInfo_sourcePropertyTrackingId
+      description: nan
+    - name: productSKU
+      description: nan
+    - name: v2ProductName
+      description: nan
+    - name: v2ProductCategory
+      description: nan
+    - name: productVariant
+      description: nan
+    - name: productBrand
+      description: nan
+    - name: productRevenue
+      description: nan
+    - name: localProductRevenue
+      description: nan
+    - name: productPrice
+      description: nan
+    - name: localProductPrice
+      description: nan
+    - name: productQuantity
+      description: nan
+    - name: productRefundAmount
+      description: nan
+    - name: localProductRefundAmount
+      description: nan
+    - name: isImpression
+      description: nan
+    - name: isClick
+      description: nan
+    - name: productListName
+      description: nan
+    - name: productListPosition
+      description: nan
+    - name: productCouponCode
+      description: nan
 
   - name: 03_sessions
-    description: "Users sessions"
+    description:  Users sessions
     columns:
-      - name: date
-        description: The date of the session in YYYYMMDD format.
-      - name: visitNumber
-        description: The session number for this user. If this is the first session, then this is set to 1.
-      - name: visitId
-        description: An identifier for this session. This is part of the value usually stored as the _utmb cookie. This is only unique to the user. For a completely unique ID, you should use a combination of fullVisitorId and visitId.
-      - name: visitStartTime
-        description: The timestamp (expressed as POSIX time).
-      - name: totals_visits
-        description: The number of sessions (for convenience). This value is 1 for sessions with interaction events. The value is null if there are no interaction events in the session.
-      - name: totals_hits
-        description: Total number of hits within the session.
-      - name: totals_pageviews
-        description: Total number of pageviews within the session.
-      - name: totals_timeOnSite
-        description: Total time of the session expressed in seconds.
-      - name: totals_bounces
-        description: Total bounces (for convenience). For a bounced session, the value is 1, otherwise it is null.
-      - name: totals_transactions
-        description: Total number of ecommerce transactions within the session.
-      - name: totals_transactionRevenue
-        description: This field is deprecated. Use "totals.totalTransactionRevenue" instead (see above).
-      - name: totals_newVisits
-        description: Total number of new users in session (for convenience). If this is the first visit, this value is 1, otherwise it is null.
-      - name: totals_screenviews
-        description: Total number of screenviews within the session.
-      - name: totals_uniqueScreenviews
-        description: nan
-      - name: totals_timeOnScreen
-        description: The total time on screen in seconds.
-      - name: totals_totalTransactionRevenue
-        description: Total transaction revenue, expressed as the value passed to Analytics multiplied by 10^6 (e.g., 2.40 would be given as 2400000).
-      - name: totals_sessionQualityDim
-        description: An estimate of how close a particular session was to transacting, ranging from 1 to 100, calculated for each session. A value closer to 1 indicates a low session quality, or far from transacting, while a value closer to 100 indicates a high session quality, or very close to transacting. A value of 0 indicates that Session Quality is not calculated for the selected time range.
-      - name: trafficSource_referralPath
-        description: If trafficSource.medium is "referral", then this is set to the path of the referrer. (The host name of the referrer is in trafficSource.source.)
-      - name: trafficSource_campaign
-        description: The campaign value. Usually set by the utm_campaign URL parameter.
-      - name: trafficSource_source
-        description: The source of the traffic source. Could be the name of the search engine, the referring hostname, or a value of the utm_source URL parameter.
-      - name: trafficSource_medium
-        description: The medium of the traffic source. Could be "organic", "cpc", "referral", or the value of the utm_medium URL parameter.
-      - name: trafficSource_keyword
-        description: The keyword of the traffic source, usually set when the trafficSource.medium is "organic" or "cpc". Can be set by the utm_term URL parameter.
-      - name: trafficSource_adContent
-        description: The ad content of the traffic source. Can be set by the utm_content URL parameter.
-      - name: trafficSource_adwordsClickInfo_campaignId
-        description: nan
-      - name: trafficSource_adwordsClickInfo_adGroupId
-        description: nan
-      - name: trafficSource_adwordsClickInfo_creativeId
-        description: nan
-      - name: trafficSource_adwordsClickInfo_criteriaId
-        description: nan
-      - name: trafficSource_adwordsClickInfo_page
-        description: nan
-      - name: trafficSource_adwordsClickInfo_slot
-        description: nan
-      - name: trafficSource_adwordsClickInfo_criteriaParameters
-        description: nan
-      - name: trafficSource_adwordsClickInfo_gclId
-        description: nan
-      - name: trafficSource_adwordsClickInfo_customerId
-        description: nan
-      - name: trafficSource_adwordsClickInfo_adNetworkType
-        description: nan
-      - name: trafficSource_adwordsClickInfo_targetingCriteria_boomUserlistId
-        description: nan
-      - name: trafficSource_adwordsClickInfo_isVideoAd
-        description: nan
-      - name: trafficSource_isTrueDirect
-        description: True if the source of the session was Direct (meaning the user typed the name of your website URL into the browser or came to your site via a bookmark), This field will also be true if 2 successive but distinct sessions have exactly the same campaign details. Otherwise NULL.
-      - name: trafficSource_campaignCode
-        description: Value of the utm_id campaign tracking parameter, used for manual campaign tracking.
-      - name: device_browser
-        description: The browser used (e.g., "Chrome" or "Firefox").
-      - name: device_browserVersion
-        description: The version of the browser used.
-      - name: device_browserSize
-        description: The viewport size of users' browsers. This captures the initial dimensions of the viewport in pixels and is formatted as width x height, for example, 1920x960.
-      - name: device_operatingSystem
-        description: The operating system of the device (e.g., "Macintosh" or "Windows").
-      - name: device_operatingSystemVersion
-        description: The version of the operating system.
-      - name: device_isMobile
-        description: nan
-      - name: device_mobileDeviceBranding
-        description: The brand or manufacturer of the device.
-      - name: device_mobileDeviceModel
-        description: The mobile device model.
-      - name: device_mobileInputSelector
-        description: Selector (e.g., touchscreen, joystick, clickwheel, stylus) used on the mobile device.
-      - name: device_mobileDeviceInfo
-        description: The branding, model, and marketing name used to identify the mobile device.
-      - name: device_mobileDeviceMarketingName
-        description: The marketing name used for the mobile device.
-      - name: device_flashVersion
-        description: The version of the Adobe Flash plugin that is installed on the browser.
-      - name: device_javaEnabled
-        description: Whether or not Java is enabled in the browser.
-      - name: device_language
-        description: The language the device is set to use. Expressed as the IETF language code.
-      - name: device_screenColors
-        description: Number of colors supported by the display, expressed as the bit-depth (e.g., "8-bit", "24-bit", etc.).
-      - name: device_screenResolution
-        description: The resolution of the device's screen, expressed in pixel width x height (e.g., "800x600").
-      - name: device_deviceCategory
-        description: The type of device (Mobile, Tablet, Desktop).
-      - name: geoNetwork_continent
-        description: The continent from which sessions originated, based on IP address.
-      - name: geoNetwork_subContinent
-        description: The sub-continent from which sessions originated, based on IP address of the visitor.
-      - name: geoNetwork_country
-        description: The country from which sessions originated, based on IP address.
-      - name: geoNetwork_region
-        description: The region from which sessions originate, derived from IP addresses. In the U.S., a region is a state, such as New York.
-      - name: geoNetwork_metro
-        description: The Designated Market Area (DMA) from which sessions originate.
-      - name: geoNetwork_city
-        description: Users' city, derived from their IP addresses or Geographical IDs.
-      - name: geoNetwork_cityId
-        description: Users' city ID, derived from their IP addresses or Geographical IDs. The city IDs are the same as the Criteria IDs found at https://developers.google.com/analytics/devguides/collection/protocol/v1/geoid.
-      - name: geoNetwork_networkDomain
-        description: [No longer supported] The domain name of user's ISP, derived from the domain name registered to the ISP's IP address.
-      - name: geoNetwork_latitude
-        description: The approximate latitude of users' city, derived from their IP addresses or Geographical IDs. Locations north of the equator have positive latitudes and locations south of the equator have negative latitudes.
-      - name: geoNetwork_longitude
-        description: The approximate longitude of users' city, derived from their IP addresses or Geographical IDs. Locations east of the prime meridian have positive longitudes and locations west of the prime meridian have negative longitudes.
-      - name: geoNetwork_networkLocation
-        description: [No longer supported]The names of the service providers used to reach the property. For example, if most users of the website come via the major cable internet service providers, its value will be these service providers' names.
-      - name: fullVisitorId
-        description: The unique visitor ID.
-      - name: userId
-        description: Overridden User ID sent to Analytics.
-      - name: clientId
-        description: Unhashed version of the Client ID for a given user associated with any given visit/session.
-      - name: channelGrouping
-        description: The Default Channel Group associated with an end user's session for this View.
-      - name: socialEngagementType
-        description: Engagement type, either "Socially Engaged" or "Not Socially Engaged".
+    - name: date
+      description: The date of the session in YYYYMMDD format.
+    - name: visitNumber
+      description: The session number for this user. If this is the first session, then this is set to 1.
+    - name: visitId
+      description: An identifier for this session. This is part of the value usually stored as the _utmb cookie. This is only unique to the user. For a completely unique ID, you should use a combination of fullVisitorId and visitId.
+    - name: visitStartTime
+      description: The timestamp (expressed as POSIX time).
+    - name: totals_visits
+      description: The number of sessions (for convenience). This value is 1 for sessions with interaction events. The value is null if there are no interaction events in the session.
+    - name: totals_hits
+      description: Total number of hits within the session.
+    - name: totals_pageviews
+      description: Total number of pageviews within the session.
+    - name: totals_timeOnSite
+      description: Total time of the session expressed in seconds.
+    - name: totals_bounces
+      description: Total bounces (for convenience). For a bounced session, the value is 1, otherwise it is null.
+    - name: totals_transactions
+      description: Total number of ecommerce transactions within the session.
+    - name: totals_transactionRevenue
+      description: This field is deprecated. Use  totals.totalTransactionRevenue  instead (see above).
+    - name: totals_newVisits
+      description: Total number of new users in session (for convenience). If this is the first visit, this value is 1, otherwise it is null.
+    - name: totals_screenviews
+      description: Total number of screenviews within the session.
+    - name: totals_uniqueScreenviews
+      description: nan
+    - name: totals_timeOnScreen
+      description: The total time on screen in seconds.
+    - name: totals_totalTransactionRevenue
+      description: Total transaction revenue, expressed as the value passed to Analytics multiplied by 10^6 (e.g., 2.40 would be given as 2400000).
+    - name: totals_sessionQualityDim
+      description: An estimate of how close a particular session was to transacting, ranging from 1 to 100, calculated for each session. A value closer to 1 indicates a low session quality, or far from transacting, while a value closer to 100 indicates a high session quality, or very close to transacting. A value of 0 indicates that Session Quality is not calculated for the selected time range.
+    - name: trafficSource_referralPath
+      description: If trafficSource.medium is  referral , then this is set to the path of the referrer. (The host name of the referrer is in trafficSource.source.)
+    - name: trafficSource_campaign
+      description: The campaign value. Usually set by the utm_campaign URL parameter.
+    - name: trafficSource_source
+      description: The source of the traffic source. Could be the name of the search engine, the referring hostname, or a value of the utm_source URL parameter.
+    - name: trafficSource_medium
+      description: The medium of the traffic source. Could be  organic ,  cpc ,  referral , or the value of the utm_medium URL parameter.
+    - name: trafficSource_keyword
+      description: The keyword of the traffic source, usually set when the trafficSource.medium is  organic  or  cpc . Can be set by the utm_term URL parameter.
+    - name: trafficSource_adContent
+      description: The ad content of the traffic source. Can be set by the utm_content URL parameter.
+    - name: trafficSource_adwordsClickInfo_campaignId
+      description: nan
+    - name: trafficSource_adwordsClickInfo_adGroupId
+      description: nan
+    - name: trafficSource_adwordsClickInfo_creativeId
+      description: nan
+    - name: trafficSource_adwordsClickInfo_criteriaId
+      description: nan
+    - name: trafficSource_adwordsClickInfo_page
+      description: nan
+    - name: trafficSource_adwordsClickInfo_slot
+      description: nan
+    - name: trafficSource_adwordsClickInfo_criteriaParameters
+      description: nan
+    - name: trafficSource_adwordsClickInfo_gclId
+      description: nan
+    - name: trafficSource_adwordsClickInfo_customerId
+      description: nan
+    - name: trafficSource_adwordsClickInfo_adNetworkType
+      description: nan
+    - name: trafficSource_adwordsClickInfo_targetingCriteria_boomUserlistId
+      description: nan
+    - name: trafficSource_adwordsClickInfo_isVideoAd
+      description: nan
+    - name: trafficSource_isTrueDirect
+      description: True if the source of the session was Direct (meaning the user typed the name of your website URL into the browser or came to your site via a bookmark), This field will also be true if 2 successive but distinct sessions have exactly the same campaign details. Otherwise NULL.
+    - name: trafficSource_campaignCode
+      description: Value of the utm_id campaign tracking parameter, used for manual campaign tracking.
+    - name: device_browser
+      description: The browser used (e.g.,  Chrome  or  Firefox ).
+    - name: device_browserVersion
+      description: The version of the browser used.
+    - name: device_browserSize
+      description: The viewport size of users browsers. This captures the initial dimensions of the viewport in pixels and is formatted as width x height, for example, 1920x960.
+    - name: device_operatingSystem
+      description: The operating system of the device (e.g.,  Macintosh  or  Windows ).
+    - name: device_operatingSystemVersion
+      description: The version of the operating system.
+    - name: device_isMobile
+      description: nan
+    - name: device_mobileDeviceBranding
+      description: The brand or manufacturer of the device.
+    - name: device_mobileDeviceModel
+      description: The mobile device model.
+    - name: device_mobileInputSelector
+      description: Selector (e.g., touchscreen, joystick, clickwheel, stylus) used on the mobile device.
+    - name: device_mobileDeviceInfo
+      description: The branding, model, and marketing name used to identify the mobile device.
+    - name: device_mobileDeviceMarketingName
+      description: The marketing name used for the mobile device.
+    - name: device_flashVersion
+      description: The version of the Adobe Flash plugin that is installed on the browser.
+    - name: device_javaEnabled
+      description: Whether or not Java is enabled in the browser.
+    - name: device_language
+      description: The language the device is set to use. Expressed as the IETF language code.
+    - name: device_screenColors
+      description: Number of colors supported by the display, expressed as the bit-depth (e.g.,  8-bit ,  24-bit , etc.).
+    - name: device_screenResolution
+      description: The resolution of the devices screen, expressed in pixel width x height (e.g.,  800x600 ).
+    - name: device_deviceCategory
+      description: The type of device (Mobile, Tablet, Desktop).
+    - name: geoNetwork_continent
+      description: The continent from which sessions originated, based on IP address.
+    - name: geoNetwork_subContinent
+      description: The sub-continent from which sessions originated, based on IP address of the visitor.
+    - name: geoNetwork_country
+      description: The country from which sessions originated, based on IP address.
+    - name: geoNetwork_region
+      description: The region from which sessions originate, derived from IP addresses. In the U.S., a region is a state, such as New York.
+    - name: geoNetwork_metro
+      description: The Designated Market Area (DMA) from which sessions originate.
+    - name: geoNetwork_city
+      description: Users city, derived from their IP addresses or Geographical IDs.
+    - name: geoNetwork_cityId
+      description: Users city ID  derived from their IP addresses or Geographical IDs. The city IDs are the same as the Criteria IDs
+    - name: geoNetwork_networkDomain
+      description:  No longer supported. The domain name of users ISP, derived from the domain name registered to the ISPs IP address.
+    - name: geoNetwork_latitude
+      description: The approximate latitude of users city, derived from their IP addresses or Geographical IDs. Locations north of the equator have positive latitudes and locations south of the equator have negative latitudes.
+    - name: geoNetwork_longitude
+      description: The approximate longitude of users city, derived from their IP addresses or Geographical IDs. Locations east of the prime meridian have positive longitudes and locations west of the prime meridian have negative longitudes.
+    - name: geoNetwork_networkLocation
+      description:  No longer supported.The names of the service providers used to reach the property. For example, if most users of the website come via the major cable internet service providers, its value will be these service providers names.
+    - name: fullVisitorId
+      description: The unique visitor ID.
+    - name: userId
+      description: Overridden User ID sent to Analytics.
+    - name: clientId
+      description: Unhashed version of the Client ID for a given user associated with any given visit/session.
+    - name: channelGrouping
+      description: The Default Channel Group associated with an end users session for this View.
+    - name: socialEngagementType
+      description: Engagement type, either  Socially Engaged  or  Not Socially Engaged .
