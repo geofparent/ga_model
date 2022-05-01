@@ -38,9 +38,9 @@ from (
         max(if(hits.isinteraction = true,hits.time / 1000,0)) over (partition by sessions.fullVisitorId, sessions.visitStartTime) as last_interaction,
         lead(hits.time / 1000) over (partition by sessions.fullVisitorId, sessions.visitStartTime order by hits.time / 1000) as next_pageview
       from
-        hits
+        sessions
         LEFT JOIN
-        sessions on hits.session_id = sessions.session_id
+        hits on sessions.session_id = hits.session_id
       where
         hits.type = 'PAGE'
         and sessions.totals_visits = 1))
@@ -53,17 +53,18 @@ from (
 select
   hits.page_pagePath as page_pagePath,
   hits.page_pageTitle as page_pageTitle,
-  count(*) as pageviews,
+  count(*) as page_pageviews,
   count(distinct concat(cast(sessions.fullVisitorId as string), cast(sessions.visitStartTime as string))) as unique_pageviews,
   avg_time_on_page,
   countif(hits.isEntrance = true) as entrances,
   countif(sessions.totals_bounces = 1) / count(distinct concat(sessions.fullVisitorId, cast(sessions.visitStartTime as string))) as bounce_rate,
   countif(hits.isExit = true) / count(*) as exit_rate
 from
-  hits
+  sessions
   left JOIN
-  sessions on hits.session_id = sessions.session_id
-  left join avg_time on hits.page_pagePath = avg_time.page
+  hits on sessions.session_id = hits.session_id
+  left join
+  avg_time on hits.page_pagePath = avg_time.page_pagePath
   and hits.page_pageTitle = avg_time.page_pageTitle
 where
   sessions.totals_visits = 1

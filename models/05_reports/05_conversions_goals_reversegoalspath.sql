@@ -3,7 +3,7 @@ with hits as(
 ),
 sessions as(
     select * from {{ ref('03_sessions') }}
-
+)
 
 select
   goal_completion_location,

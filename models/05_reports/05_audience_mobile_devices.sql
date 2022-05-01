@@ -37,6 +37,6 @@ device_browserVersion,
 device_browserSize,
 device_operatingSystem,
 device_operatingSystemVersion,
-device_screenResolution,
+device_screenResolution
 order by
   users desc

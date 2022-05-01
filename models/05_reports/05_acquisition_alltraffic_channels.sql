@@ -6,9 +6,9 @@ with sessions as(
 select
   sessions.channelGrouping as channelGrouping,
   count(distinct sessions.fullVisitorId) as users,
-  count(distinct(case when totals.newvisits = 1 then sessions.sessions.fullVisitorId else null end)) as new_users,
+  count(distinct(case when sessions.totals_newvisits = 1 then sessions.fullVisitorId else null end)) as new_users,
   count(distinct concat(sessions.fullVisitorId, cast(sessions.visitStartTime as string))) as sessions,
-  count(distinct case when totals.bounces = 1 then concat(sessions.fullVisitorId, cast(sessions.visitStartTime as string)) else null end ) / count(distinct concat(sessions.fullVisitorId, cast(sessions.visitStartTime as string))) as bounce_rate,
+  count(distinct case when sessions.totals_bounces = 1 then concat(sessions.fullVisitorId, cast(sessions.visitStartTime as string)) else null end ) / count(distinct concat(sessions.fullVisitorId, cast(sessions.visitStartTime as string))) as bounce_rate,
   sum(sessions.totals_pageviews) / count(distinct concat(sessions.fullVisitorId, cast(sessions.visitStartTime as string))) as pages_per_session,
   ifnull(sum(sessions.totals_timeOnSite) / count(distinct concat(sessions.fullVisitorId, cast(sessions.visitStartTime as string))),0) as average_session_duration,
   ifnull(sum(sessions.totals_transactions),0) as transactions,
@@ -17,7 +17,7 @@ select
 from
   sessions
 where
-  totals.visits = 1
+  sessions.totals_visits = 1
 group by
   channelGrouping
 order by

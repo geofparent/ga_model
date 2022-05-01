@@ -10,7 +10,7 @@ select
   sessions.trafficSource_campaign as trafficSource_campaign,
   (select hits.page_pagePath from hits where hits.isEntrance = true) as landing_page,
   count(distinct sessions.fullVisitorId) as users,
-  count(distinct(case when totals.newvisits = 1 then sessions.fullVisitorId else null end)) as new_users,
+  count(distinct(case when sessions.totals_newvisits = 1 then sessions.fullVisitorId else null end)) as new_users,
   count(distinct concat(sessions.fullVisitorId, cast(sessions.visitStartTime as string))) as sessions,
   count(distinct case when sessions.totals_bounces = 1 then concat(sessions.fullVisitorId, cast(sessions.visitStartTime as string)) else null end ) / count(distinct concat(sessions.fullVisitorId, cast(sessions.visitStartTime as string))) as bounce_rate,
   sum(sessions.totals_pageviews) / count(distinct concat(sessions.fullVisitorId, cast(sessions.visitStartTime as string))) as pages_per_session,
@@ -24,7 +24,7 @@ where
   sessions.totals_visits = 1
   and sessions.trafficSource_medium = 'referral'
 group by
-  trafficSource_source
+  trafficSource_campaign
   ,landing_page
 order by
   users desc

@@ -15,9 +15,9 @@ select
   ifnull(sum(hits.eventInfo_eventValue),0) as event_value,
   ifnull(sum(hits.eventInfo_eventValue) / count(*),0) as avg_value
 from
-  hits
+  sessions
   LEFT JOIN
-  sessions on hits.session_id = sessions.session_id
+  hits on sessions.session_id = hits.session_id
 where
 ### is total visits needed if this is unnested? do we need a left join to sessions table for this?
   sessions.totals_visits = 1

@@ -11,7 +11,7 @@ select
   sessions.trafficSource_adcontent as trafficSource_adcontent,
   sessions.trafficSource_keyword as trafficSource_keyword,
   count(distinct sessions.fullVisitorId) as users,
-  count(distinct(case when totals.newvisits = 1 then sessions.fullVisitorId else null end)) as new_users,
+  count(distinct(case when sessions.totals_newvisits = 1 then sessions.fullVisitorId else null end)) as new_users,
   count(distinct concat(sessions.fullVisitorId, cast(sessions.visitStartTime as string))) as sessions,
   count(distinct case when sessions.totals_bounces = 1 then concat(sessions.fullVisitorId, cast(sessions.visitStartTime as string)) else null end ) / count(distinct concat(sessions.fullVisitorId, cast(sessions.visitStartTime as string))) as bounce_rate,
   sum(sessions.totals_pageviews) / count(distinct concat(sessions.fullVisitorId, cast(sessions.visitStartTime as string))) as pages_per_session,
@@ -29,6 +29,6 @@ trafficSource_source,
 trafficSource_medium,
 source_medium,
 trafficSource_adcontent,
-trafficSource_keyword,
+trafficSource_keyword
 order by
   users desc

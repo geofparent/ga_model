@@ -14,9 +14,9 @@ select
   ifnull(sum(hits.eventInfo_eventValue),0) as event_value,
   ifnull(sum(hits.eventInfo_eventValue) / count(*),0) as avg_value
 from
-  hits
+  sessions
   LEFT JOIN
-  sessions ON hits.session_id = sessions.session_id
+  hits ON sessions.session_id = hits.session_id
 where
   sessions.totals_visits = 1
   and type = 'EVENT'

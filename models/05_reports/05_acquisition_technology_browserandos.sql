@@ -35,5 +35,6 @@ group by
   device_screenResolution,
   device_screenColors,
   device_flashVersion,
+  java_support
 order by
   users desc
