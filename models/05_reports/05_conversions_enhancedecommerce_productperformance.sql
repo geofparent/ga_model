@@ -24,7 +24,7 @@ select
 from
   sessions
   LEFT JOIN
-  hits on session.session_id = hits.session_id
+  hits on sessions.session_id = hits.session_id
   LEFT JOIN
   products on hits.hit_id = products.hit_id
 
