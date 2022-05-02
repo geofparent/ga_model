@@ -22,14 +22,13 @@ select
   ifnull(safe_divide(count(case when hits.eCommerceAction_action_type = '3' then hits.fullVisitorId else null end),count(case when hits.eCommerceAction_action_type = '2' and products.isImpression is null then hits.fullVisitorId else null end)),0) as cart_to_detail_rate,
   ifnull(safe_divide(count(case when hits.eCommerceAction_action_type = '6' then hits.transaction_transactionId else null end),count(case when hits.eCommerceAction_action_type = '2' and products.isImpression is null then hits.fullVisitorId else null end)),0) as buy_to_detail_rate
 from
-  hits
+  sessions
   LEFT JOIN
-  products on hits.item_productSku = products.productSKU
+  hits on session.session_id = hits.session_id
   LEFT JOIN
-  sessions on hits.session_id = sessions.session_id
+  products on hits.hit_id = products.hit_id
 
 where
-###
   sessions.totals_visits = 1
 group by
   v2ProductName

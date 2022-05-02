@@ -3,6 +3,7 @@ SELECT
   fullVisitorId AS fullVisitorId,
   visitId AS visitId,
   concat(fullVisitorId, visitId) as session_id,
+  concat(fullvisitorid, visitId,hitNumber) as hit_id,
   visitStartTime AS visitStartTime,
   hitNumber AS hitNumber,
   sourcePropertyInfo.sourcePropertyDisplayName AS sourcePropertyInfo_sourcePropertyDisplayName,

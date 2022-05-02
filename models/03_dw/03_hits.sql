@@ -5,6 +5,7 @@ SELECT
   visitNumber AS visitNumber,
   visitId AS visitId,
   concat(fullvisitorid, visitId) as session_id,
+  concat(fullvisitorid, visitId,hitNumber) as hit_id,
   visitStartTime AS visitStartTime,
   hitNumber AS hitNumber,
   time AS time,

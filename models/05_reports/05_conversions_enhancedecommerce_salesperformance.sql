@@ -22,7 +22,7 @@ from
   LEFT JOIN
   hits on sessions.session_id = hits.session_id
   LEFT JOIN
-  products on hits.item_productSku = products.productSKU
+  products on hits.hit_id = products.hit_id
 where
   sessions.totals_visits = 1
   and hits.transaction_transactionId is not null
